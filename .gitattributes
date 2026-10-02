@@ -1,0 +1,13 @@
+# Byte fidelity is a release gate for this repository.
+#
+# supplement_analysis.py hashes its four inputs against input_bindings.json, and
+# SHA256SUMS records SHA-256 values for the payload. Any EOL
+# normalisation makes the committed bytes differ from the hashed bytes, so a
+# clean clone cannot reproduce them. That defect was real: the bound inputs and
+# several artifacts were stored LF while their recorded hashes were of
+# the CRLF working-tree forms, so the recorded hashes did not survive a clone.
+#
+# Store every file exactly as authored. Do not convert line endings: `text` and
+# `eol` are both unset, because setting `eol` implies text conversion even when
+# `text` is unset.
+* -text -eol

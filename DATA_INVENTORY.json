@@ -1,0 +1,156 @@
+{
+  "_about": "Complete tracked-artifact publication inventory for PMI, one entry per tracked file (or per explicitly enumerated file group). Answers, for every artifact: origin, raw/derived, whether it is needed for the reported-statistics reproduction, whether it carries player- or source-level content, the proposed public/private disposition, and why. PROPOSED dispositions are recommendations only: the operator makes the legal and publication decision. Nothing here grants or implies a right to redistribute third-party content.",
+  "inventory_version": "2026-10-01",
+  "paper": "Ratings Are Not Forecasts: Accounting, Calibration, and Information Timing in NBA Player-Impact Forecasting",
+  "counts": {
+    "tracked_files_total": 69,
+    "files_requiring_operator_public_decision": 4,
+    "files_recommended_public_under_code_licence": 65,
+    "payload_files_in_manifest": 67,
+    "gitlinks": 0,
+    "count_rule": "tracked_files_total = git ls-files | count. files_recommended_public_under_code_licence = tracked_files_total minus the 4 files requiring an operator decision. payload_files_in_manifest = tracked_files_total minus SHA256SUMS and REPRODUCTION_RECEIPT.json, which are excluded from their own manifest."
+  },
+  "disposition_vocabulary": {
+    "PUBLIC_PROPOSED": "recommended for the public candidate; original WMS code or document, no third-party row content",
+    "OPERATOR_DECISION_REQUIRED": "NBA.com-derived content; public release needs Geoffrey's explicit decision",
+    "GENERATED_PUBLIC_PROPOSED": "generated result artifact; no third-party row content",
+    "PRIVATE_ONLY": "must never be tracked in a public candidate"
+  },
+
+  "entries": [
+    {
+      "group": "bound inputs (reproduce the reported statistics)",
+      "origin": "NBA.com (third-party), reduced by WMS",
+      "raw_or_derived": "DERIVED",
+      "needed_for_L1": true,
+      "contains_player_or_source_level_data": "game-level only; no player identities, no raw events",
+      "proposed": "OPERATOR_DECISION_REQUIRED",
+      "reason": "These four files reproduce the headline numbers. They are derived, not raw, but they are NBA.com-derived, so their publication is a rights decision, not an engineering one.",
+      "files": [
+        { "path": "data/pmi_games_track_a.csv", "bytes": 1742552, "detail": "10,466-row per-game evaluation table, actual-participation diagnostic", "sha256": "705ea1426a4df5e7a25c93884bff50a8df7eb2e1d8409e78132b87756a583b25" },
+        { "path": "data/pmi_games_track_b.csv", "bytes": 1767809, "detail": "10,466-row per-game evaluation table, projected-participation operational track", "sha256": "56140b6a42e7ddbd85c4ea1fa8d39e55873819a784132a4da5a4cab27f047bea" },
+        { "path": "data/frozen_parameters.json", "bytes": 1227, "detail": "development-only offsets and residual quantiles; numeric constants, no rows", "sha256": "27fff863b7b1f1ad8d291add2fb58059ac6bf93e6bc8dddf3399d195269e70f2" },
+        { "path": "data/expected.json", "bytes": 12503, "detail": "committed expected values used as reproduction checks; summary numbers", "sha256": "60574fda6307db7c043a2e994449cb97f65625ef00566d1b869aa352091e149d" }
+      ]
+    },
+    {
+      "group": "reproduction, analysis, figure and test code",
+      "origin": "World Model Sports LLC",
+      "raw_or_derived": "ORIGINAL_WMS",
+      "needed_for_L1": true,
+      "contains_player_or_source_level_data": false,
+      "proposed": "PUBLIC_PROPOSED",
+      "reason": "Original code under the MIT licence. Needed to reproduce and to run the suite.",
+      "files": [
+        "reproduce.py",
+        "supplement_analysis.py",
+        "make_figures.py",
+        "test_supplement.py",
+        "rebuild_tables.py",
+        "input_bindings.json",
+        "requirements.txt",
+        "requirements-verified.txt",
+        "requirements-dev.txt",
+        "requirements-figures.txt",
+        "requirements-rebuild.txt",
+        "pyproject.toml",
+        "uv.lock"
+      ]
+    },
+    {
+      "group": "original pipeline source",
+      "origin": "World Model Sports LLC",
+      "raw_or_derived": "ORIGINAL_WMS",
+      "needed_for_L1": false,
+      "contains_player_or_source_level_data": false,
+      "proposed": "PUBLIC_PROPOSED",
+      "reason": "The possession ledger, RAPM fit/evaluate and IO code that produced the evaluation tables. Included for auditability of how the derived tables were built. Not required for L1.",
+      "count": 23,
+      "files_glob": "pipeline/**"
+    },
+    {
+      "group": "generated results and figures",
+      "origin": "World Model Sports LLC (computed from the derived tables)",
+      "raw_or_derived": "GENERATED",
+      "needed_for_L1": true,
+      "contains_player_or_source_level_data": false,
+      "proposed": "GENERATED_PUBLIC_PROPOSED",
+      "reason": "Executed output and paper figures. No third-party row content; reproduce deterministically from the tracked tables.",
+      "files": [
+        "supplement/supplement_results.json",
+        "supplement/SUPPLEMENT_RESULTS.md",
+        "supplement/figures/fig1_calibration_and_gains.png",
+        "supplement/figures/fig1_calibration_and_gains.svg",
+        "supplement/figures/fig2_interval_quality.png",
+        "supplement/figures/fig2_interval_quality.svg",
+        "table1.csv",
+        "figures/README.md"
+      ]
+    },
+    {
+      "group": "authored documents",
+      "origin": "World Model Sports LLC",
+      "raw_or_derived": "ORIGINAL_WMS",
+      "needed_for_L1": false,
+      "contains_player_or_source_level_data": false,
+      "proposed": "PUBLIC_PROPOSED",
+      "reason": "Manuscript, abstract, provenance, rights, review and release documentation.",
+      "files": [
+        "README.md",
+        "abstract.md",
+        "abstract.txt",
+        "MANUSCRIPT.md",
+        "DATA.md",
+        "DATA_INVENTORY.json",
+        "CLAIM_LEDGER.md",
+        "PRIOR_WORK.md",
+        "AUTHORS.json",
+        "LOCAL_SOURCE_RECONSTRUCTION.json",
+        "THIRD_PARTY_NOTICES.md",
+        "REPRODUCE.md",
+        "RIGHTS.md",
+        "REPRODUCTION_RECEIPT.json",
+        "LICENSE",
+        "source_data/README.md"
+      ]
+    },
+    {
+      "group": "repository metadata",
+      "origin": "World Model Sports LLC",
+      "raw_or_derived": "ORIGINAL_WMS",
+      "needed_for_L1": false,
+      "contains_player_or_source_level_data": false,
+      "proposed": "PUBLIC_PROPOSED",
+      "reason": "Line-ending policy, ignore rules and the payload manifest. The byte-exact line-ending policy is load-bearing for reproduction.",
+      "files": [".gitattributes", ".gitignore", "SHA256SUMS"]
+    }
+  ],
+
+  "private_only_never_tracked": [
+    { "category": "raw play-by-play event rows", "origin": "NBA.com", "reason": "raw provider content; no redistribution" },
+    { "category": "raw rotations / lineup stints", "origin": "NBA.com", "reason": "raw provider content; no redistribution" },
+    { "category": "bulk box scores and player-level provider tables", "origin": "NBA.com", "reason": "raw provider content; no redistribution" },
+    { "category": "the private preservation archive", "origin": "WMS", "reason": "kept off-repository on the authoring host" },
+    { "category": "credentials, caches, secrets", "origin": "n/a", "reason": "never tracked" },
+    { "category": "absolute local filesystem paths", "origin": "n/a", "reason": "never tracked; verified absent" }
+  ],
+
+  "resolved_since_RC1": {
+    "empty_source_data_gitlink": "removed (was mode 160000 with an unconfigured placeholder remote). Replaced by source_data/README.md. The candidate now has zero gitlinks.",
+    "hermetic_environment": "pyproject.toml + uv.lock added. uv.lock is transitive (13 packages), unlike requirements-verified.txt."
+  },
+
+  "operator_summary": {
+    "recommended_public_candidate": "code + derived evaluation tables + generated results + documentation + attribution",
+    "recommended_private_only": "raw PBP, rotations, bulk box/player data, preservation archive",
+    "the_four_files_needing_your_ruling": [
+      "data/pmi_games_track_a.csv",
+      "data/pmi_games_track_b.csv",
+      "data/frozen_parameters.json",
+      "data/expected.json"
+    ],
+    "blocking_gate": "open_rights_question",
+    "blocking_gate_reason": "Those four files are NBA.com-derived and their redistribution status is unresolved. Publishing them is your decision; a MIT code licence cannot grant third-party data rights.",
+    "note": "Everything else in the candidate is original WMS code, documentation, or generated output with no third-party row content."
+  }
+}
